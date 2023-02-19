@@ -66,19 +66,14 @@ exibirItens();
 function removerItens(valor){
     // Captura o elemento clicado baseado em seu id
     const elemento = document.querySelector(`.pokemon-${valor}`)
+
     // Remove o elemento da tela
     elemento.remove();
     // Remove o elemento no array
     dados.splice(valor, 1)
-
-    // Cria uma estrutura que passa por todos itens do array
-    dados.forEach((item) =>{ 
-        if(item.id >= valor){ // caso o id do item seja maior que o parâmetro valor, diminui um
-            item.id = item.id - 1;
-        }   
-    })
     // Atualiza o localStorage
     localStorage.setItem('itens', JSON.stringify(dados))
+
 }
 
 const btnAtualizar = document.getElementById("atualizar");
@@ -90,19 +85,19 @@ function atualizarItens(){
         "elemento": elemento.value,
         "ataque": ataque.value,
         "defesa": defesa.value,
-        "id": dados.length
     }
     // Percorre o array de itens salvos
     dados.forEach((item) =>{ 
         // Caso o nome inserido exista no array, ou seja:
         if(pokemon.nome === item.nome){
             // Remove o item antigo pelo indice
-           dados.splice(item.id, 1)
-           // Adiciona o novo item atualizado
-           dados.splice(item.id, 0, pokemon)
-           // Atualiza o LocalStorage
-           localStorage.setItem('itens', JSON.stringify(dados))
-           alert("O item foi atualizado!")
+            dados.splice(item.id, 1)
+            localStorage.setItem('itens', JSON.stringify(dados))
+
+            dados.splice(item.id, 0, pokemon)
+            // Atualiza o LocalStorage
+            localStorage.setItem('itens', JSON.stringify(dados))
+            alert("O item foi atualizado!")
         }
     })
 }
