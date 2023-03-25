@@ -63,18 +63,21 @@ function exibirItens(){
 }
 exibirItens();
 
-function removerItens(valor){
-    // Captura o elemento clicado baseado em seu id
-    const elemento = document.querySelector(`.pokemon-${valor}`)
+function removerItens(id){
+    // Encontra o índice do item com o id correspondente
+    const index = dados.findIndex(item => item.id === id);
 
-    // Remove o elemento da tela
+    // Se o índice for válido, remove o item do array e atualiza o localStorage
+    if (index !== -1) {
+        dados.splice(index, 1);
+        localStorage.setItem('itens', JSON.stringify(dados));
+    }
+
+    // Remove o elemento da tabela
+    const elemento = document.querySelector(`.pokemon-${id}`);
     elemento.remove();
-    // Remove o elemento no array
-    dados.splice(valor, 1)
-    // Atualiza o localStorage
-    localStorage.setItem('itens', JSON.stringify(dados))
-
 }
+
 
 const btnAtualizar = document.getElementById("atualizar");
 btnAtualizar.addEventListener('click', atualizarItens)
